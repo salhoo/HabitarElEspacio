@@ -1,0 +1,165 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #e6e6e6;
+  color: #111111;
+  font-family: "Barlow", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.volver {
+  position: fixed;
+  top: 16px;
+  left: 18px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: #1f1f1f;
+  line-height: 1;
+  z-index: 20;
+}
+
+.volver-carita {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.volver-flecha {
+  font-size: 14px;
+  font-style: italic;
+}
+
+.pagina {
+  width: min(100%, 1500px);
+  margin: 0 auto;
+  padding: clamp(96px, 12vh, 170px) clamp(18px, 3vw, 44px) clamp(40px, 6vw, 92px);
+  text-transform: lowercase;
+}
+
+.intro {
+  position: relative;
+  min-height: clamp(620px, 78vh, 900px);
+  --linea-inicio-y: clamp(20px, 3vh, 34px);
+  --paso-vertical: clamp(112px, 12.5vh, 170px);
+}
+
+.intro-linea {
+  position: absolute;
+  top: var(--linea-inicio-y);
+  margin: 0;
+  left: clamp(88px, 8.8vw, 220px);
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(24px, 3.1vw, 62px);
+  font-weight: 100;
+  font-style: italic;
+  line-height: 1;
+}
+
+.intro-palabra {
+  position: absolute;
+  margin: 0;
+  font-size: clamp(24px, 3.1vw, 62px);
+  font-weight: 100;
+  font-style: italic;
+  line-height: 1;
+  text-transform: none;
+}
+
+.intro-habitar {
+  left: 31%;
+  top: calc(var(--linea-inicio-y) + var(--paso-vertical));
+}
+
+.intro-el {
+  left: 53%;
+  top: calc(var(--linea-inicio-y) + (var(--paso-vertical) * 2));
+}
+
+.intro-espacio {
+  left: 75%;
+  top: calc(var(--linea-inicio-y) + (var(--paso-vertical) * 3));
+}
+
+.subtitulo {
+  margin: clamp(22px, 4vw, 60px) 0 0;
+  font-size: clamp(26px, 3vw, 52px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.texto-largo {
+  margin-top: clamp(18px, 3vw, 36px);
+  max-width: 78ch;
+}
+
+.texto-largo p {
+  margin: 0 0 1.15em;
+  font-size: clamp(19px, 1.6vw, 30px);
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.enlace-retrato {
+  display: block;
+  width: min(100%, 760px);
+  margin: clamp(22px, 4vw, 56px) auto 0;
+  text-decoration: none;
+}
+
+.enlace-retrato img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+
+@media (max-width: 900px) {
+  .pagina {
+    padding-top: 44px;
+  }
+
+  .intro {
+    min-height: auto;
+    display: grid;
+    gap: 30px;
+  }
+
+  .intro-linea {
+    position: static;
+    left: auto;
+    max-width: 34ch;
+    white-space: normal;
+  }
+
+  .intro-palabra {
+    position: static;
+    text-transform: none;
+  }
+
+  .intro-habitar {
+    padding-left: 10%;
+  }
+
+  .intro-el {
+    padding-left: 32%;
+  }
+
+  .intro-espacio {
+    padding-left: 54%;
+  }
+
+  .subtitulo {
+    margin-top: 22px;
+  }
+}

@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>habitarelespacio/retrato.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;1,300;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #e6e6e6;
+      color: #1f1f1f;
+      font-family: "Barlow", Arial, sans-serif;
+      font-weight: 300;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .pagina {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .volver {
+      position: fixed;
+      top: 16px;
+      left: 18px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      margin-bottom: 0;
+      color: #1f1f1f;
+      text-decoration: none;
+      line-height: 1;
+      z-index: 20;
+      user-select: none;
+    }
+
+    .volver-carita {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    .volver-flecha {
+      font-size: 14px;
+      font-style: italic;
+      line-height: 1;
+    }
+    .escena {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 clamp(14px, 3vw, 32px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .escena.activa {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .espacio-scroll {
+      height: 200vh;
+    }
+
+    .galeria {
+      --tarjeta-max: 284px;
+      --tarjeta-min: 210px;
+      --espacio: clamp(24px, 8vw, 110px);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(var(--tarjeta-min), var(--tarjeta-max)));
+      gap: var(--espacio);
+      width: min(100%, calc((4 * var(--tarjeta-max)) + (3 * var(--espacio))));
+      margin: 0 auto;
+      justify-content: center;
+      align-items: start;
+    }
+
+    .retrato {
+      margin: 0;
+      width: 100%;
+      max-width: 284px;
+      justify-self: center;
+    }
+
+    .retrato-lugar {
+      margin: 0 0 12px;
+      font-size: clamp(22px, 2.2vw, 25px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.15;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .retrato-marco {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 284 / 463;
+      overflow: hidden;
+      background: #d6d6d6;
+    }
+
+    .retrato-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .retrato-marco img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(1);
+    }
+
+    @media (max-width: 1170px) {
+      .galeria {
+        grid-template-columns: repeat(3, minmax(190px, var(--tarjeta-max)));
+        width: min(100%, calc((3 * var(--tarjeta-max)) + (2 * var(--espacio))));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .galeria {
+        grid-template-columns: repeat(2, minmax(180px, var(--tarjeta-max)));
+        width: min(100%, calc((2 * var(--tarjeta-max)) + var(--espacio)));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .galeria {
+        grid-template-columns: minmax(0, var(--tarjeta-max));
+        width: 100%;
+      }
+
+      .retrato-lugar {
+        font-size: clamp(24px, 7vw, 28px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="pagina">
+    <a class="volver" href="../index.html" aria-label="volver a la pagina anterior" onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }">
+      <img class="volver-carita" src="../assets/carita.png" alt="">
+      <span class="volver-flecha" aria-hidden="true">&larr;</span>
+    </a>
+
+    <section class="escena activa" id="escena-1" aria-label="retratos bloque uno">
+      <section class="galeria" aria-label="retratos bloque uno">
+        <figure class="retrato">
+          <p class="retrato-lugar">Paola C.</p>
+          <a class="retrato-link" href="./personas/paola-c.html">
+            <div class="retrato-marco">
+              <img src="../assets/imagen-01.jpg" alt="Retrato de Paola C.">
+            </div>
+          </a>
+        </figure>
+
+        <figure class="retrato">
+          <p class="retrato-lugar">Linda N.</p>
+          <a class="retrato-link" href="./personas/linda-n.html">
+            <div class="retrato-marco">
+              <img src="../assets/imagen-02.jpg" alt="Retrato de Linda N.">
+            </div>
+          </a>
+        </figure>
+
+        <figure class="retrato">
+          <p class="retrato-lugar">Anah&iacute; P.</p>
+          <a class="retrato-link" href="./personas/anahi-p.html">
+            <div class="retrato-marco">
+              <img src="../assets/imagen-03.jpg" alt="Retrato de Anahí P.">
+            </div>
+          </a>
+        </figure>
+
+        <figure class="retrato">
+          <p class="retrato-lugar">Leonardo G.</p>
+          <a class="retrato-link" href="./personas/leonardo-g.html">
+            <div class="retrato-marco">
+              <img src="../assets/imagen-09.jpg" alt="Retrato de Leonardo G.">
+            </div>
+          </a>
+        </figure>
+      </section>
+    </section>
+
+    <section class="escena" id="escena-2" aria-label="retratos bloque dos">
+      <section class="galeria" aria-label="retratos bloque dos">
+        <figure class="retrato">
+          <p class="retrato-lugar">Embodcn.</p>
+          <a class="retrato-link" href="./personas/embodcn.html">
+            <div class="retrato-marco">
+              <img src="../assets/imagen-04.jpg" alt="Retrato de Embodcn.">
+            </div>
+          </a>
+        </figure>
+
+        <figure class="retrato">
+          <p class="retrato-lugar">Regina O.</p>
+          <a class="retrato-link" href="./personas/regina-o.html">
+            <div class="retrato-marco">
+              <img src="../assets/imagen-05.jpg" alt="Retrato de Regina O.">
+            </div>
+          </a>
+        </figure>
+
+        <figure class="retrato">
+          <p class="retrato-lugar">Hanna S.</p>
+          <a class="retrato-link" href="./personas/hanna-s.html">
+            <div class="retrato-marco">
+              <img src="../assets/imagen-06.jpg" alt="Retrato de Hanna S.">
+            </div>
+          </a>
+        </figure>
+
+        <figure class="retrato">
+          <p class="retrato-lugar">Colectivo.</p>
+          <a class="retrato-link" href="./personas/colectivo.html">
+            <div class="retrato-marco">
+              <img src="../assets/imagen-07.jpg" alt="Retrato del colectivo.">
+            </div>
+          </a>
+        </figure>
+      </section>
+    </section>
+
+    <div class="espacio-scroll" aria-hidden="true"></div>
+  </main>
+  <script>
+    var escenaUno = document.getElementById('escena-1');
+    var escenaDos = document.getElementById('escena-2');
+
+    function actualizarEscena() {
+      var umbral = window.innerHeight * 0.55;
+
+      if (window.scrollY >= umbral) {
+        escenaUno.className = 'escena';
+        escenaDos.className = 'escena activa';
+      } else {
+        escenaUno.className = 'escena activa';
+        escenaDos.className = 'escena';
+      }
+    }
+
+    window.addEventListener('scroll', actualizarEscena);
+    window.addEventListener('resize', actualizarEscena);
+    actualizarEscena();
+  </script>
+</body>
+</html>
