@@ -44,29 +44,27 @@ body {
   min-height: clamp(620px, 78vh, 900px);
   --linea-inicio-y: clamp(20px, 3vh, 34px);
   --paso-vertical: clamp(112px, 12.5vh, 170px);
+  --intro-tamano: clamp(24px, 3.1vw, 62px);
+}
+
+.intro-linea,
+.intro-palabra {
+  margin: 0;
+  font-size: var(--intro-tamano);
+  font-weight: 100;
+  font-style: italic;
+  line-height: 1;
 }
 
 .intro-linea {
   position: absolute;
   top: var(--linea-inicio-y);
-  margin: 0;
   left: clamp(88px, 8.8vw, 220px);
-  max-width: none;
   white-space: nowrap;
-  font-size: clamp(24px, 3.1vw, 62px);
-  font-weight: 100;
-  font-style: italic;
-  line-height: 1;
 }
 
 .intro-palabra {
   position: absolute;
-  margin: 0;
-  font-size: clamp(24px, 3.1vw, 62px);
-  font-weight: 100;
-  font-style: italic;
-  line-height: 1;
-  text-transform: none;
 }
 
 .intro-habitar {
@@ -119,7 +117,6 @@ body {
   filter: grayscale(1);
 }
 
-
 @media (max-width: 900px) {
   .pagina {
     padding-top: 44px;
@@ -131,16 +128,14 @@ body {
     gap: 30px;
   }
 
-  .intro-linea {
-    position: static;
-    left: auto;
-    max-width: 34ch;
-    white-space: normal;
-  }
-
+  .intro-linea,
   .intro-palabra {
     position: static;
-    text-transform: none;
+  }
+
+  .intro-linea {
+    max-width: 34ch;
+    white-space: normal;
   }
 
   .intro-habitar {

@@ -1,286 +1,216 @@
-function obtenerLightbox() {
-  var existente = document.querySelector('.detalle-lightbox');
-  if (existente) {
-    return {
-      contenedor: existente,
-      imagen: existente.querySelector('.detalle-lightbox-imagen'),
-      texto: existente.querySelector('.detalle-lightbox-texto'),
-      indice: existente.querySelector('.detalle-lightbox-indice'),
-      cerrar: existente.querySelector('.detalle-lightbox-cerrar'),
-      anterior: existente.querySelector('.detalle-lightbox-nav--prev'),
-      siguiente: existente.querySelector('.detalle-lightbox-nav--next')
-    };
+var formas = ['forma-a', 'forma-b', 'forma-c', 'forma-d', 'forma-e', 'forma-f'];
+var galerias = document.querySelectorAll('.detalle-galeria');
+var visor = crearVisor();
+var visorEstado = {
+  abierto: false,
+  indice: 0,
+  items: [],
+  disparador: null,
+  cierre: null
+};
+
+function textoPlano(texto) {
+  return (texto || '').replace(/\s+/g, ' ').trim();
+}
+
+function obtenerNombre(seccion) {
+  var detalle = seccion.closest('.detalle');
+  var titulo = detalle ? detalle.querySelector('.detalle-nombre') : null;
+  return textoPlano(titulo ? titulo.textContent : '') || 'Retrato';
+}
+
+function limpiarItem(item) {
+  formas.forEach(function (clase) {
+    item.classList.remove(clase);
+  });
+  item.style.removeProperty('grid-column');
+  item.style.removeProperty('grid-row');
+}
+
+function crearVisor() {
+  var root = document.getElementById('detalle-lightbox');
+
+  if (!root) {
+    root = document.createElement('div');
+    root.id = 'detalle-lightbox';
+    root.className = 'detalle-lightbox';
+    root.hidden = true;
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-modal', 'true');
+    root.setAttribute('aria-label', 'Visor de galeria');
+    root.innerHTML = [
+      '<button type="button" class="detalle-lightbox__backdrop" aria-label="Cerrar visor"></button>',
+      '<div class="detalle-lightbox__dialog">',
+      '  <button type="button" class="detalle-lightbox__close" aria-label="Cerrar visor">&times;</button>',
+      '  <div class="detalle-lightbox__frame">',
+      '    <img class="detalle-lightbox__image" alt="">',
+      '  </div>',
+      '  <div class="detalle-lightbox__meta">',
+      '    <p class="detalle-lightbox__caption"></p>',
+      '    <p class="detalle-lightbox__counter"></p>',
+      '  </div>',
+      '</div>'
+    ].join('');
+    document.body.appendChild(root);
   }
 
-  var contenedor = document.createElement('aside');
-  contenedor.className = 'detalle-lightbox';
-  contenedor.setAttribute('aria-hidden', 'true');
-  contenedor.innerHTML =
-    '<div class="detalle-lightbox-dialogo" role="dialog" aria-modal="true" aria-label="visor de imagen">' +
-      '<button class="detalle-lightbox-cerrar" type="button" aria-label="cerrar imagen ampliada">&times;</button>' +
-      '<div class="detalle-lightbox-marco">' +
-        '<button class="detalle-lightbox-nav detalle-lightbox-nav--prev" type="button" aria-label="imagen anterior">&#8249;</button>' +
-        '<img class="detalle-lightbox-imagen" alt="imagen ampliada">' +
-        '<button class="detalle-lightbox-nav detalle-lightbox-nav--next" type="button" aria-label="imagen siguiente">&#8250;</button>' +
-      '</div>' +
-      '<div class="detalle-lightbox-pie">' +
-        '<span class="detalle-lightbox-texto"></span>' +
-        '<span class="detalle-lightbox-indice"></span>' +
-      '</div>' +
-    '</div>';
+  var close = root.querySelector('.detalle-lightbox__close');
 
-  document.body.appendChild(contenedor);
+  root.querySelector('.detalle-lightbox__backdrop').addEventListener('click', cerrarVisor);
+  close.addEventListener('click', cerrarVisor);
 
   return {
-    contenedor: contenedor,
-    imagen: contenedor.querySelector('.detalle-lightbox-imagen'),
-    texto: contenedor.querySelector('.detalle-lightbox-texto'),
-    indice: contenedor.querySelector('.detalle-lightbox-indice'),
-    cerrar: contenedor.querySelector('.detalle-lightbox-cerrar'),
-    anterior: contenedor.querySelector('.detalle-lightbox-nav--prev'),
-    siguiente: contenedor.querySelector('.detalle-lightbox-nav--next')
+    root: root,
+    image: root.querySelector('.detalle-lightbox__image'),
+    caption: root.querySelector('.detalle-lightbox__caption'),
+    counter: root.querySelector('.detalle-lightbox__counter'),
+    close: close
   };
 }
 
-document.querySelectorAll('.detalle-galeria-carrusel').forEach(function (carrusel) {
-  var visor = carrusel.querySelector('.detalle-galeria-viewport');
-  var pista = carrusel.querySelector('.detalle-galeria-pista');
-  var botonAnterior = carrusel.querySelector('.detalle-galeria-flecha--prev');
-  var botonSiguiente = carrusel.querySelector('.detalle-galeria-flecha--next');
-  var totalGaleria = 6;
-  var lightbox = obtenerLightbox();
-  var indiceAbierto = -1;
+function actualizarVisor() {
+  var item = visorEstado.items[visorEstado.indice];
+  var imagen = item ? item.querySelector('img') : null;
+  var titulo = item ? item.dataset.coleccionTitulo : '';
 
-  if (!visor || !pista) {
+  if (!imagen) {
     return;
   }
 
-  function nombreArchivoDeImagen(item) {
-    var imagen = item.querySelector('img');
-    if (!imagen) {
-      return '';
-    }
+  visor.image.src = imagen.currentSrc || imagen.getAttribute('src') || '';
+  visor.image.alt = titulo;
+  visor.caption.textContent = titulo;
+  visor.counter.textContent = (visorEstado.indice + 1) + ' / ' + visorEstado.items.length;
+}
 
-    var src = imagen.getAttribute('src') || '';
-    return src.split('/').pop().toLowerCase();
+function abrirVisor(items, indice, disparador) {
+  if (visorEstado.cierre) {
+    window.clearTimeout(visorEstado.cierre);
+    visorEstado.cierre = null;
   }
 
-  function esImagenPrincipalORetrato(item) {
-    var nombre = nombreArchivoDeImagen(item);
-    return nombre.indexOf('imagen_principal') !== -1 || nombre.indexOf('retrato') !== -1;
-  }
+  visorEstado.abierto = true;
+  visorEstado.items = items;
+  visorEstado.indice = indice;
+  visorEstado.disparador = disparador;
 
-  var semillas = Array.from(pista.children).filter(function (item) {
-    return !esImagenPrincipalORetrato(item);
+  actualizarVisor();
+  visor.root.hidden = false;
+  document.body.classList.add('detalle-lightbox-abierto');
+
+  requestAnimationFrame(function () {
+    visor.root.classList.add('activa');
+    visor.close.focus();
   });
+}
 
-  if (semillas.length === 0) {
+function cerrarVisor() {
+  if (!visorEstado.abierto) {
     return;
   }
 
-  var baseSemillas = semillas.slice();
-  var indiceRotacion = 0;
+  visorEstado.abierto = false;
+  visor.root.classList.remove('activa');
+  document.body.classList.remove('detalle-lightbox-abierto');
 
-  while (semillas.length < totalGaleria) {
-    semillas.push(baseSemillas[indiceRotacion % baseSemillas.length].cloneNode(true));
-    indiceRotacion += 1;
+  visorEstado.cierre = window.setTimeout(function () {
+    visor.root.hidden = true;
+    visor.image.removeAttribute('src');
+    visorEstado.cierre = null;
+  }, 180);
+
+  if (visorEstado.disparador) {
+    visorEstado.disparador.focus();
+  }
+}
+
+function moverVisor(paso) {
+  if (!visorEstado.abierto || !visorEstado.items.length) {
+    return;
   }
 
-  var originales = semillas.slice(0, totalGaleria);
+  visorEstado.indice = (visorEstado.indice + paso + visorEstado.items.length) % visorEstado.items.length;
+  actualizarVisor();
+}
+
+function prepararGaleria(seccion) {
+  var pista = seccion.querySelector('.detalle-galeria-pista');
+  var base = pista ? Array.from(pista.querySelectorAll('.detalle-galeria-item')) : [];
+  var nombre = obtenerNombre(seccion);
+  var items = [];
+
+  if (!pista || !base.length) {
+    return;
+  }
+
   pista.innerHTML = '';
-  var copias = [];
 
-  originales.forEach(function (item, indiceOriginal) {
-    item.setAttribute('data-galeria-indice', String(indiceOriginal));
-    var copia = item.cloneNode(true);
-    copia.setAttribute('data-galeria-indice', String(indiceOriginal));
+  formas.forEach(function (clase, indice) {
+    var item = base[indice % base.length].cloneNode(true);
+    var titulo = 'Coleccion ' + (indice + 1) + '. ' + nombre;
 
-    pista.appendChild(item);
-    copias.push(copia);
-  });
+    limpiarItem(item);
+    item.classList.add(clase);
+    item.style.setProperty('--item-delay', ((formas.length - 1 - indice) * 0.11) + 's');
+    item.dataset.coleccionTitulo = titulo;
+    item.tabIndex = 0;
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', 'Abrir ' + titulo);
 
-  copias.forEach(function (copia) {
-    pista.appendChild(copia);
-  });
+    item.addEventListener('click', function () {
+      abrirVisor(items, indice, item);
+    });
 
-  var indice = 0;
-  var intervalo = null;
-
-  function obtenerColumnasVisibles() {
-    return window.innerWidth <= 560 ? 1 : window.innerWidth <= 760 ? 2 : 3;
-  }
-
-  function obtenerPaso() {
-    var primerElemento = pista.querySelector('.detalle-galeria-item');
-    if (!primerElemento) {
-      return 0;
-    }
-
-    var estilos = window.getComputedStyle(pista);
-    var espacio = parseFloat(estilos.columnGap || estilos.gap || '0');
-    return primerElemento.getBoundingClientRect().width + espacio;
-  }
-
-  function aplicarTransicionDesplazamiento() {
-    pista.classList.add('animando');
-    pista.style.transform = 'translateX(' + (-indice * obtenerPaso()) + 'px)';
-  }
-
-  function avanzar() {
-    indice += 1;
-    aplicarTransicionDesplazamiento();
-  }
-
-  function retroceder() {
-    if (indice === 0) {
-      pista.classList.remove('animando');
-      indice = originales.length;
-      pista.style.transform = 'translateX(' + (-indice * obtenerPaso()) + 'px)';
-      pista.offsetHeight;
-    }
-
-    indice -= 1;
-    aplicarTransicionDesplazamiento();
-  }
-
-  function reiniciarCarruselSiHaceFalta() {
-    if (indice >= originales.length) {
-      pista.classList.remove('animando');
-      indice = 0;
-      pista.style.transform = 'translateX(0)';
-    }
-  }
-
-  function arrancar() {
-    detener();
-    intervalo = window.setInterval(avanzar, 2600);
-  }
-
-  function detener() {
-    if (intervalo) {
-      window.clearInterval(intervalo);
-      intervalo = null;
-    }
-  }
-
-  function mostrarEnLightbox(indiceReal) {
-    if (indiceReal < 0 || indiceReal >= originales.length) {
-      return;
-    }
-
-    var figura = originales[indiceReal];
-    var imagen = figura.querySelector('img');
-    if (!imagen) {
-      return;
-    }
-
-    indiceAbierto = indiceReal;
-    lightbox.imagen.src = imagen.getAttribute('src') || '';
-    lightbox.imagen.alt = imagen.alt || 'imagen ampliada';
-    lightbox.texto.textContent = 'descripcion galeria ' + (indiceReal + 1);
-    lightbox.indice.textContent = (indiceReal + 1) + ' / ' + originales.length;
-    lightbox.contenedor.classList.add('activo');
-    lightbox.contenedor.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    detener();
-  }
-
-  function cerrarLightbox() {
-    lightbox.contenedor.classList.remove('activo');
-    lightbox.contenedor.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    indiceAbierto = -1;
-    arrancar();
-  }
-
-  function cambiarImagenLightbox(direccion) {
-    if (indiceAbierto < 0) {
-      return;
-    }
-
-    indiceAbierto = (indiceAbierto + direccion + originales.length) % originales.length;
-    mostrarEnLightbox(indiceAbierto);
-  }
-
-  pista.addEventListener('transitionend', reiniciarCarruselSiHaceFalta);
-
-  pista.addEventListener('click', function (evento) {
-    var item = evento.target.closest('.detalle-galeria-item');
-    if (!item) {
-      return;
-    }
-
-    var indiceGuardado = Number(item.getAttribute('data-galeria-indice'));
-    if (Number.isNaN(indiceGuardado)) {
-      var itemsRenderizados = Array.from(pista.children);
-      var indiceRender = itemsRenderizados.indexOf(item);
-      if (indiceRender < 0) {
+    item.addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
         return;
       }
-      mostrarEnLightbox(indiceRender % originales.length);
+
+      event.preventDefault();
+      abrirVisor(items, indice, item);
+    });
+
+    pista.appendChild(item);
+    items.push(item);
+  });
+}
+
+var observador = new IntersectionObserver(function (entradas, obs) {
+  entradas.forEach(function (entrada) {
+    if (!entrada.isIntersecting) {
       return;
     }
 
-    mostrarEnLightbox(indiceGuardado);
+    entrada.target.classList.add('activa');
+    obs.unobserve(entrada.target);
   });
+}, {
+  threshold: 0.2,
+  rootMargin: '0px 0px -8% 0px'
+});
 
-  if (botonSiguiente) {
-    botonSiguiente.addEventListener('click', function () {
-      detener();
-      avanzar();
-      arrancar();
-    });
+galerias.forEach(function (seccion) {
+  prepararGaleria(seccion);
+  observador.observe(seccion);
+});
+
+document.addEventListener('keydown', function (event) {
+  if (!visorEstado.abierto) {
+    return;
   }
 
-  if (botonAnterior) {
-    botonAnterior.addEventListener('click', function () {
-      detener();
-      retroceder();
-      arrancar();
-    });
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    cerrarVisor();
   }
 
-  carrusel.addEventListener('mouseenter', detener);
-  carrusel.addEventListener('mouseleave', arrancar);
-  carrusel.addEventListener('focusin', detener);
-  carrusel.addEventListener('focusout', arrancar);
+  if (event.key === 'ArrowRight') {
+    event.preventDefault();
+    moverVisor(1);
+  }
 
-  lightbox.cerrar.addEventListener('click', cerrarLightbox);
-  lightbox.anterior.addEventListener('click', function () {
-    cambiarImagenLightbox(-1);
-  });
-  lightbox.siguiente.addEventListener('click', function () {
-    cambiarImagenLightbox(1);
-  });
-
-  lightbox.contenedor.addEventListener('click', function (evento) {
-    if (evento.target === lightbox.contenedor) {
-      cerrarLightbox();
-    }
-  });
-
-  document.addEventListener('keydown', function (evento) {
-    if (!lightbox.contenedor.classList.contains('activo')) {
-      return;
-    }
-
-    if (evento.key === 'Escape') {
-      cerrarLightbox();
-    } else if (evento.key === 'ArrowRight') {
-      cambiarImagenLightbox(1);
-    } else if (evento.key === 'ArrowLeft') {
-      cambiarImagenLightbox(-1);
-    }
-  });
-
-  window.addEventListener('resize', function () {
-    pista.classList.remove('animando');
-    indice = Math.min(indice, originales.length - 1);
-    pista.style.transform = 'translateX(' + (-indice * obtenerPaso()) + 'px)';
-    pista.style.setProperty('--columnas', obtenerColumnasVisibles());
-  });
-
-  pista.style.setProperty('--columnas', obtenerColumnasVisibles());
-  pista.style.transform = 'translateX(0)';
-  arrancar();
+  if (event.key === 'ArrowLeft') {
+    event.preventDefault();
+    moverVisor(-1);
+  }
 });

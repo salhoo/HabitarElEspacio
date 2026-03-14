@@ -1,34 +1,31 @@
-﻿var imagenes = [
-  { id: 'IMG-01', nombre: 'imagen-01', src: 'assets/imagen-01.jpg' },
-  { id: 'IMG-02', nombre: 'imagen-02', src: 'assets/imagen-02.jpg' },
-  { id: 'IMG-03', nombre: 'imagen-03', src: 'assets/imagen-03.jpg' },
-  { id: 'IMG-04', nombre: 'imagen-04', src: 'assets/imagen-04.jpg' },
-  { id: 'IMG-05', nombre: 'imagen-05', src: 'assets/imagen-05.jpg' },
-  { id: 'IMG-06', nombre: 'imagen-06', src: 'assets/imagen-06.jpg' },
-  { id: 'IMG-07', nombre: 'imagen-07', src: 'assets/imagen-07.jpg' },
-  { id: 'IMG-08', nombre: 'imagen-08', src: 'assets/imagen-08.jpg' }
+var imagenes = [
+  'imagen-01',
+  'imagen-02',
+  'imagen-03',
+  'imagen-04',
+  'imagen-05',
+  'imagen-06',
+  'imagen-07',
+  'imagen-08'
 ];
+var piezas = document.querySelectorAll('.pieza');
 
-var cuadros = document.querySelectorAll('.pieza');
-
-function numeroAleatorio(maximo) {
-  return Math.floor(Math.random() * maximo);
+function imagenAleatoria() {
+  return imagenes[Math.floor(Math.random() * imagenes.length)];
 }
 
-for (var i = 0; i < cuadros.length; i++) {
-  var img = cuadros[i].querySelector('img');
-  img.removeAttribute('src');
+function activarPieza() {
+  var img = this.querySelector('img');
+  var nombre = imagenAleatoria();
+  var lugar = this.getAttribute('data-pieza') || 'pieza-sin-nombre';
 
-  cuadros[i].addEventListener('mouseenter', function () {
-    var imagen = this.querySelector('img');
-    var posicion = numeroAleatorio(imagenes.length);
-    var seleccion = imagenes[posicion];
-    var nombrePieza = this.getAttribute('data-pieza') || 'pieza-sin-nombre';
+  img.src = 'assets/' + nombre + '.jpg';
+  img.alt = nombre + ' en ' + lugar;
+  img.dataset.imagen = nombre.replace('imagen-', 'IMG-');
+  this.classList.add('activa');
+}
 
-    imagen.src = seleccion.src;
-    imagen.alt = seleccion.nombre + ' en ' + nombrePieza;
-    imagen.setAttribute('data-imagen', seleccion.id);
-
-    this.classList.add('activa');
-  });
+for (var i = 0; i < piezas.length; i += 1) {
+  piezas[i].querySelector('img').removeAttribute('src');
+  piezas[i].addEventListener('mouseenter', activarPieza);
 }

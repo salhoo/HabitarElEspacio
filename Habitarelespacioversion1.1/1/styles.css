@@ -38,7 +38,7 @@ h1 {
 }
 
 .contenedor {
-  width: 820px;
+  width: min(92%, 820px);
   margin: 30px auto 0;
 }
 
@@ -104,10 +104,6 @@ h1 {
   transition: opacity 0.2s ease;
 }
 
-.pieza.activa {
-  border: 0
-}
-
 .pieza.activa img {
   opacity: 1;
   object-position: center;
@@ -165,23 +161,12 @@ h1 {
     font-size: clamp(30px, 12vw, 52px);
   }
 
-  .contenedor {
-    width: 92%;
-  }
-
   .mosaico {
     grid-template-columns: 1fr;
     grid-template-rows: none;
   }
 
-  .pieza-top-a,
-  .pieza-top-b,
-  .pieza-top-c,
-  .pieza-a,
-  .pieza-b,
-  .pieza-c,
-  .pieza-d,
-  .pieza-e {
+  .mosaico > .pieza {
     grid-column: auto;
     grid-row: auto;
     min-height: 180px;

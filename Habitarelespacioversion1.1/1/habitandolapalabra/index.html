@@ -8,10 +8,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,300;1,100;1,300&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../menu.css">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <a class="volver" href="../index.html" aria-label="volver a la pagina anterior" onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }">
+  <nav class="menu-principal" aria-label="menu principal">
+    <ul class="menu-lista">
+      <li class="menu-item"><a class="menu-link" href="../index.html">Inicio</a></li>
+      <li class="menu-item"><a class="menu-link activo" href="./index.html">Habitando la palabra</a></li>
+      <li class="menu-item"><a class="menu-link" href="../retrato.com/index.html">Retratos</a></li>
+      <li class="menu-item"><a class="menu-link" href="../index.html#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <a class="volver" href="../index.html" aria-label="volver a la pagina anterior">
     <span class="volver-flecha" aria-hidden="true">&larr;</span>
   </a>
 
@@ -41,5 +51,6 @@
       <img src="../assets/imagen-09.jpg" alt="Ir al index de retrato">
     </a>
   </main>
+  <script src="../menu.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -9,9 +9,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;1,300;1,500;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./detalle.css">
+  <link rel="stylesheet" href="../../menu.css">
 </head>
 <body>
-  <a class="volver" href="../index.html" aria-label="volver a la pagina anterior" onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }">
+  <nav class="menu-principal" aria-label="menu principal">
+    <ul class="menu-lista">
+      <li class="menu-item"><a class="menu-link" href="../../index.html">Inicio</a></li>
+      <li class="menu-item"><a class="menu-link" href="../../habitandolapalabra/index.html">Habitando la palabra</a></li>
+      <li class="menu-item"><a class="menu-link activo" href="../index.html">Retratos</a></li>
+      <li class="menu-item"><a class="menu-link" href="../../index.html#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <a class="volver" href="../index.html" aria-label="volver a la pagina anterior">
     <span class="volver-flecha" aria-hidden="true">&larr;</span>
   </a>
 
@@ -25,28 +35,36 @@
 
       <section class="detalle-contenido">
         <h1 class="detalle-nombre">Ubaldo Lorenzano</h1>
-        <section class="detalle-info">
-          <h2>descripci&oacute;n</h2>
-          <p>descripcion</p>
-        </section>
       </section>
     </section>
 
     <section class="detalle-galeria" aria-label="galeria de Ubaldo Lorenzano">
       <h2 class="detalle-galeria-titulo">galer&iacute;a</h2>
       <div class="detalle-galeria-carrusel">
-        <button class="detalle-galeria-flecha detalle-galeria-flecha--prev" type="button" aria-label="ver fotos anteriores">&larr;</button>
         <div class="detalle-galeria-viewport">
           <div class="detalle-galeria-pista">
             <figure class="detalle-galeria-item"><img src="../media/personas/ubaldo/galeria_1.jpg" alt="Galeria 1 de Ubaldo Lorenzano"></figure>
             <figure class="detalle-galeria-item"><img src="../media/personas/ubaldo/galeria_2.jpg" alt="Galeria 2 de Ubaldo Lorenzano"></figure>
           </div>
         </div>
-        <button class="detalle-galeria-flecha detalle-galeria-flecha--next" type="button" aria-label="ver fotos siguientes">&rarr;</button>
+      </div>
+    </section>
+  
+    <section class="detalle-extra" aria-label="descripcion y reproductor">
+      <div class="detalle-extra-texto">
+        <h2>video</h2>
+        <p>
+          Registro audiovisual del retrato.
+        </p>
+      </div>
+      <div class="detalle-extra-media">
+        <div class="detalle-embed">
+          <iframe src="https://www.youtube.com/embed/HDeH8jRUFf0" title="Video de Ubaldo Lorenzano" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
       </div>
     </section>
   </main>
+  <script src="../../menu.js"></script>
   <script src="./galeria.js"></script>
 </body>
 </html>
-

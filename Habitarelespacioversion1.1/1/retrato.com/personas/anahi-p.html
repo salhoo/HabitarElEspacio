@@ -9,24 +9,64 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;1,300;1,500;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./detalle.css">
+  <link rel="stylesheet" href="../../menu.css">
 </head>
 <body>
-  <a class="volver" href="../index.html" aria-label="volver a la pagina anterior" onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }">
-    <img class="volver-carita" src="../../assets/carita.png" alt="">
+  <nav class="menu-principal" aria-label="menu principal">
+    <ul class="menu-lista">
+      <li class="menu-item"><a class="menu-link" href="../../index.html">Inicio</a></li>
+      <li class="menu-item"><a class="menu-link" href="../../habitandolapalabra/index.html">Habitando la palabra</a></li>
+      <li class="menu-item"><a class="menu-link activo" href="../index.html">Retratos</a></li>
+      <li class="menu-item"><a class="menu-link" href="../../index.html#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <a class="volver" href="../index.html" aria-label="volver a la pagina anterior">
     <span class="volver-flecha" aria-hidden="true">&larr;</span>
   </a>
 
   <main class="detalle">
-    <h1 class="detalle-nombre">Anah&iacute; P.</h1>
-    <figure class="detalle-imagen">
-      <img src="../../assets/imagen-03.jpg" alt="Retrato de Anah&iacute; P.">
-    </figure>
+    <section class="detalle-hero">
+      <div class="detalle-media">
+        <figure class="detalle-imagen">
+          <img src="../../assets/imagen-03.jpg" alt="Retrato de Anah&iacute; P.">
+        </figure>
+      </div>
+
+      <section class="detalle-contenido">
+        <h1 class="detalle-nombre">Anah&iacute; P.</h1>
+      </section>
+    </section>
 
     <section class="detalle-info">
       <h2>descripci&oacute;n</h2>
       <p>descripcion</p>
     </section>
+
+    <section class="detalle-galeria" aria-label="galeria de Anah&iacute; P.">
+      <h2 class="detalle-galeria-titulo">galer&iacute;a</h2>
+      <div class="detalle-galeria-carrusel">
+        <div class="detalle-galeria-viewport">
+          <div class="detalle-galeria-pista">
+            <figure class="detalle-galeria-item"><img src="../../assets/imagen-03.jpg" alt="Galeria de Anah&iacute; P."></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detalle-extra" aria-label="descripcion y reproductor">
+      <div class="detalle-extra-texto">
+        <h2>video</h2>
+        <p>Agrega aqu&iacute; una breve descripci&oacute;n del video.</p>
+      </div>
+      <div class="detalle-extra-media">
+        <div class="detalle-embed detalle-embed-placeholder">
+          <p>Pega aqu&iacute; el iframe o enlace del video.</p>
+        </div>
+      </div>
+    </section>
   </main>
+  <script src="../../menu.js"></script>
+  <script src="./galeria.js"></script>
 </body>
 </html>
-
