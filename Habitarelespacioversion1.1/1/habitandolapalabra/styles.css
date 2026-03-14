@@ -16,24 +16,20 @@ body {
   top: 16px;
   left: 18px;
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
   text-decoration: none;
   color: #1f1f1f;
   line-height: 1;
   z-index: 20;
 }
 
-.volver-carita {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-}
-
 .volver-flecha {
-  font-size: 14px;
+  font-size: 36px;
   font-style: italic;
+  line-height: 1;
 }
 
 .pagina {

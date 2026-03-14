@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anahí Ponce | retrato.com</title>
+  <title>Anah&iacute; Ponce | retrato.com</title>
   <link rel="icon" type="image/png" href="../../assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,21 +12,41 @@
 </head>
 <body>
   <a class="volver" href="../index.html" aria-label="volver a la pagina anterior" onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }">
-    <img class="volver-carita" src="../../assets/carita.png" alt="">
     <span class="volver-flecha" aria-hidden="true">&larr;</span>
   </a>
 
   <main class="detalle">
-    <h1 class="detalle-nombre">Anahí Ponce</h1>
-    <figure class="detalle-imagen">
-      <img src="../../assets/imagen-03.jpg" alt="Retrato de Anahí Ponce">
-    </figure>
+    <section class="detalle-hero">
+      <div class="detalle-media">
+        <figure class="detalle-imagen">
+          <img src="../media/personas/anahi/imagen_principal.jpg" alt="Retrato de Anah&iacute; Ponce">
+        </figure>
+      </div>
 
-    <section class="detalle-info">
-      <h2>descripci&oacute;n</h2>
-      <p>descripcion</p>
+      <section class="detalle-contenido">
+        <h1 class="detalle-nombre">Anah&iacute; Ponce</h1>
+        <section class="detalle-info">
+          <h2>descripci&oacute;n</h2>
+          <p>descripcion</p>
+        </section>
+      </section>
+    </section>
+
+    <section class="detalle-galeria" aria-label="galeria de Anah&iacute; Ponce">
+      <h2 class="detalle-galeria-titulo">galer&iacute;a</h2>
+      <div class="detalle-galeria-carrusel">
+        <button class="detalle-galeria-flecha detalle-galeria-flecha--prev" type="button" aria-label="ver fotos anteriores">&larr;</button>
+        <div class="detalle-galeria-viewport">
+          <div class="detalle-galeria-pista">
+            <figure class="detalle-galeria-item"><img src="../media/personas/anahi/galeria_1.jpg" alt="Galeria 1 de Anah&iacute; Ponce"></figure>
+            <figure class="detalle-galeria-item"><img src="../media/personas/anahi/galeria_2.jpg" alt="Galeria 2 de Anah&iacute; Ponce"></figure>
+          </div>
+        </div>
+        <button class="detalle-galeria-flecha detalle-galeria-flecha--next" type="button" aria-label="ver fotos siguientes">&rarr;</button>
+      </div>
     </section>
   </main>
+  <script src="./galeria.js"></script>
 </body>
 </html>
 

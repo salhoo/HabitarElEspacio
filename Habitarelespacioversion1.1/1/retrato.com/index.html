@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -36,9 +36,10 @@
       top: 16px;
       left: 18px;
       display: inline-flex;
-      flex-direction: column;
       align-items: center;
-      gap: 2px;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
       margin-bottom: 0;
       color: #1f1f1f;
       text-decoration: none;
@@ -47,15 +48,8 @@
       user-select: none;
     }
 
-    .volver-carita {
-      width: 42px;
-      height: 42px;
-      object-fit: contain;
-      background: transparent;
-    }
-
     .volver-flecha {
-      font-size: 14px;
+      font-size: 36px;
       font-style: italic;
       line-height: 1;
     }
@@ -163,35 +157,34 @@
 <body>
   <main class="pagina">
     <a class="volver" href="../index.html" aria-label="volver a la pagina anterior" onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }">
-      <img class="volver-carita" src="../assets/carita.png" alt="">
       <span class="volver-flecha" aria-hidden="true">&larr;</span>
     </a>
 
     <section class="escena activa" id="escena-1" aria-label="retratos bloque uno">
       <section class="galeria" aria-label="retratos bloque uno">
         <figure class="retrato">
-          <p class="retrato-lugar">Paola Castelán</p>
+          <p class="retrato-lugar">Paola Castel&aacute;n</p>
           <a class="retrato-link" href="./personas/Paola.html">
             <div class="retrato-marco">
-              <img src="../assets/RetratoPao.JPG" alt="Retrato de Paola Castelán">
+              <img src="./media/personas/paola/retrato.jpg" alt="Retrato de Paola Castel&aacute;n">
             </div>
           </a>
         </figure>
 
         <figure class="retrato">
-          <p class="retrato-lugar">Linda Pérez</p>
+          <p class="retrato-lugar">Linda P&eacute;rez</p>
           <a class="retrato-link" href="./personas/Linda.html">
             <div class="retrato-marco">
-              <img src="../assets/RetratoLinda.jpg" alt="Retrato de Linda Pérez">
+              <img src="./media/personas/linda/retrato.jpg" alt="Retrato de Linda P&eacute;rez">
             </div>
           </a>
         </figure>
 
         <figure class="retrato">
-          <p class="retrato-lugar">Anahí Ponce</p>
+          <p class="retrato-lugar">Anah&iacute; Ponce</p>
           <a class="retrato-link" href="./personas/Anahi.html">
             <div class="retrato-marco">
-              <img src="../assets/RetratoAnahi.JPG" alt="Retrato de Anahí Ponce">
+              <img src="./media/personas/anahi/retrato.jpg" alt="Retrato de Anah&iacute; Ponce">
             </div>
           </a>
         </figure>
@@ -200,7 +193,7 @@
           <p class="retrato-lugar">Ubaldo Lorenzano </p>
           <a class="retrato-link" href="./personas/Ubaldo.html">
             <div class="retrato-marco">
-              <img src="../assets/RetratoUba.JPG" alt="Retrato de Ubaldo Lorenzano">
+              <img src="./media/personas/ubaldo/retrato.jpg" alt="Retrato de Ubaldo Lorenzano">
             </div>
           </a>
         </figure>
@@ -213,7 +206,7 @@
           <p class="retrato-lugar">Samuel Castro</p>
           <a class="retrato-link" href="./personas/Samuel.html">
             <div class="retrato-marco">
-              <img src="../assets/RetratoSam.JPG" alt="Retrato de Samuel Castro">
+              <img src="./media/personas/samuel/retrato.jpg" alt="Retrato de Samuel Castro">
             </div>
           </a>
         </figure>
@@ -222,7 +215,7 @@
           <p class="retrato-lugar">Regina O.</p>
           <a class="retrato-link" href="./personas/regina-o.html">
             <div class="retrato-marco">
-              <img src="../assets/imagen-05.jpg" alt="Retrato de Regina O.">
+              <img src="./media/personas/regina-o/retrato.jpg" alt="Retrato de Regina O.">
             </div>
           </a>
         </figure>
@@ -231,7 +224,7 @@
           <p class="retrato-lugar">Hanna S.</p>
           <a class="retrato-link" href="./personas/hanna-s.html">
             <div class="retrato-marco">
-              <img src="../assets/imagen-06.jpg" alt="Retrato de Hanna S.">
+              <img src="./media/personas/hanna-s/retrato.jpg" alt="Retrato de Hanna S.">
             </div>
           </a>
         </figure>
@@ -240,7 +233,7 @@
           <p class="retrato-lugar">Colectivo.</p>
           <a class="retrato-link" href="./personas/colectivo.html">
             <div class="retrato-marco">
-              <img src="../assets/imagen-07.jpg" alt="Retrato del colectivo.">
+              <img src="./media/personas/colectivo/retrato.jpg" alt="Retrato del colectivo.">
             </div>
           </a>
         </figure>
@@ -271,3 +264,6 @@
   </script>
 </body>
 </html>
+
+
+
