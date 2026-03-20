@@ -7,7 +7,7 @@
 }
 
 .menu-principal {
-  position: static;
+  position: relative;
   background: var(--menu-fondo);
   border-top: 1px solid var(--menu-borde);
   border-bottom: 1px solid var(--menu-borde);

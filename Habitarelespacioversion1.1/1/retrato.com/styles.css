@@ -40,7 +40,7 @@ body {
 
 .escena {
   position: fixed;
-  inset: calc(var(--menu-altura)+ 2px) 
+  inset: calc(var(--menu-altura)+ 2px);
   display: flex;
   align-items: center;
   justify-content: center;
