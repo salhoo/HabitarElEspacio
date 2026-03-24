@@ -44,7 +44,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 clamp(14px, 3vw, 32px);
+  padding: clamp(14px, 6vh, 32px) clamp(14px, 3vw, 32px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -127,9 +127,16 @@ body {
 }
 
 @media (max-width: 560px) {
+  .escena {
+    padding: 20px clamp(14px, 3vw, 32px) !important;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
   .galeria {
     grid-template-columns: minmax(0, var(--tarjeta-max));
     width: 100%;
+    padding-top: 20px;
   }
 
   .retrato-lugar {
