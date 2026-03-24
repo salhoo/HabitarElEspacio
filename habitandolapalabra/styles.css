@@ -157,3 +157,32 @@ body {
     margin-top: 22px;
   }
 }
+
+@media (max-width: 480px) {
+  .pagina {
+    padding: 40px 16px 60px;
+  }
+
+  .intro {
+    gap: 20px;
+  }
+
+  .intro-linea,
+  .intro-palabra {
+    font-size: clamp(20px, 4vw, 40px);
+  }
+
+  .subtitulo {
+    font-size: clamp(24px, 5vw, 40px);
+    margin-top: 16px;
+  }
+
+  .texto-largo p {
+    font-size: clamp(16px, 2vw, 24px);
+    line-height: 1.6;
+  }
+
+  .enlace-retrato {
+    margin-top: 30px;
+  }
+}

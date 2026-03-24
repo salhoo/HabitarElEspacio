@@ -29,15 +29,19 @@ function activarPieza() {
   establecerImagen(this);
 }
 
-for (var i = 0; i < piezas.length; i += 1) {
-  piezas[i].querySelector('img').removeAttribute('src');
-  piezas[i].addEventListener('mouseenter', activarPieza);
-  piezas[i].addEventListener('click', activarPieza);
-  piezas[i].addEventListener('focusin', activarPieza);
-}
-
 if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
-  for (var j = 0; j < piezas.length; j += 1) {
-    establecerImagen(piezas[j]);
+  // Dispositivo táctil (móviles/tablets)
+  for (var i = 0; i < piezas.length; i += 1) {
+    piezas[i].querySelector('img').removeAttribute('src');
+    piezas[i].addEventListener('click', activarPieza);
+    piezas[i].addEventListener('focusin', activarPieza);
+    establecerImagen(piezas[i]);
+  }
+} else {
+  // Dispositivo con hover (laptops/escritorios)
+  for (var i = 0; i < piezas.length; i += 1) {
+    piezas[i].querySelector('img').removeAttribute('src');
+    piezas[i].addEventListener('mouseenter', activarPieza);
+    piezas[i].addEventListener('focusin', activarPieza);
   }
 }
