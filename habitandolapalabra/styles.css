@@ -92,7 +92,9 @@ body {
 
 .texto-largo {
   margin-top: clamp(18px, 3vw, 36px);
-  max-width: 78ch;
+  width: 100%;
+  max-width: 100%;
+  text-align: justify;
 }
 
 .texto-largo p {
@@ -100,6 +102,7 @@ body {
   font-size: clamp(19px, 1.6vw, 30px);
   font-weight: 300;
   line-height: 1.55;
+  text-align: justify;
 }
 
 .enlace-retrato {

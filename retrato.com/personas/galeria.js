@@ -151,7 +151,7 @@ function prepararGaleria(seccion) {
 
     limpiarItem(item);
     item.classList.add(clase);
-    item.style.setProperty('--item-delay', ((formas.length - 1 - indice) * 0.11) + 's');
+    item.style.setProperty('--item-delay', ((formas.length - 1 - indice) * 0.06) + 's');
     item.dataset.coleccionTitulo = titulo;
     item.tabIndex = 0;
     item.setAttribute('role', 'button');
@@ -185,8 +185,8 @@ var observador = new IntersectionObserver(function (entradas, obs) {
     obs.unobserve(entrada.target);
   });
 }, {
-  threshold: 0.2,
-  rootMargin: '0px 0px -8% 0px'
+  threshold: 0.05,
+  rootMargin: '0px 0px 10% 0px'
 });
 
 galerias.forEach(function (seccion) {
