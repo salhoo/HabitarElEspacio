@@ -4,7 +4,7 @@ var escenas = [
 ];
 
 function actualizarEscena() {
-  // optimización de dispositivos móviles y pantallas pequeñas
+  // optimización 
   if (window.innerWidth <= 560) {
     return;
   }
