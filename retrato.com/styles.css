@@ -61,6 +61,23 @@ body {
   height: 200vh;
 }
 
+@media (max-width: 560px) {
+  .escena {
+    position: relative;
+    inset: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    padding: 40px clamp(14px, 3vw, 32px);
+    margin-top: 20px;
+  }
+
+  .espacio-scroll {
+    height: auto;
+    display: none;
+  }
+}
+
 .galeria {
   --tarjeta-max: 284px;
   --tarjeta-min: 210px;
